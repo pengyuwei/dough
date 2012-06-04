@@ -241,6 +241,14 @@ def payment_type_get_by_name(context, payment_type_name):
 
 # products
 
+def subscription_get_byname(context, resource_name):
+    result = model_query(context, models.Subscription).\
+                     filter_by(resource_name=resource_name).\
+                     first()
+    if not result:
+        return None
+    return result
+    
 def product_get(context, product_id):
     result = model_query(context, models.Product).\
                      filter_by(id=product_id).\
@@ -248,7 +256,6 @@ def product_get(context, product_id):
     if not result:
         raise exception.ProductNotFound(product_id=product_id)
     return result
-
 
 def product_create(context, values):
     products = product_get_all(context, values)
